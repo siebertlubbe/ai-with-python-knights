@@ -12,26 +12,32 @@ CKnave = Symbol("C is a Knave")
 # Puzzle 0
 # A says "I am both a knight and a knave."
 knowledge0 = And(
+    # Game fundamentals
+    # You are either a knight or a knave
     Or(AKnight, AKnave),
-    Or(BKnight, BKnave),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
+    # You cannot be a knight and knave at the same time
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave)),
-    Implication(Not(And(AKnight, AKnave)), AKnave)
+
+    # A says "I am both a knight and a knave."
+    Or(
+        # If A is truthful then they are a knight and knave at the same time
+        And(AKnight, AKnave),
+        # If A is lying then they are a Knave
+        AKnave
+    )
 )
 
 # Puzzle 1
 # A says "We are both knaves."
 # B says nothing.
 knowledge1 = And(
+    # Game fundamentals
+    # You are either a knight or a knave
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
+    # You cannot be a knight and knave at the same time
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave)),
-    Implication(Not(And(AKnave, BKnave)), AKnave)
+    Not(And(BKnight, BKnave))
 )
 
 # Puzzle 2
@@ -40,18 +46,8 @@ knowledge1 = And(
 knowledge2 = And(
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave)),
-    Implication(Not(Or(
-        And(AKnave, BKnave),
-        And(AKnight, BKnight)
-        )), AKnave),
-    Implication(Not(Or(
-        And(AKnave, BKnight),
-        And(AKnight, BKnave)
-    )), AKnave)
+    Not(And(BKnight, BKnave))
 )
 
 # Puzzle 3
