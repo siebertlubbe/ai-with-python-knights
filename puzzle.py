@@ -41,7 +41,7 @@ knowledge1 = And(
 
     # A says "We are both knaves."
     Or(
-        # If A is truthful the they are not Knight and ... both of them are Knaves
+        # If A is truthful the they are Knight and ... both of them are Knaves
         And(AKnight, AKnave, BKnave),
         # If A is lying then they are a Knave and B is a Knight
         And(AKnave, BKnight)
