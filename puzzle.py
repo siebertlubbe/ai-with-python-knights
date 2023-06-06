@@ -99,9 +99,45 @@ knowledge3 = And(
     # You are either a knight or a knave
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
     # You cannot be a knight and knave at the same time
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave))
+    Not(And(BKnight, BKnave)),
+    Not(And(CKnight, CKnave)),
+
+    # B says "A said 'I am a knave'."
+    Or(
+        # If B is a Knight then what they say is true
+        And(BKnight, Or(
+            # If A is a Knight then what they say is true
+            And(AKnight, AKnave),
+            # if A is a Knave then what they said is not true
+            And(AKnave, Not(AKnave))
+        )),
+        # If B is a Knave then what they say is true
+        And(BKnave, Not(Or(
+            # If A is a Knight then what they say is true
+            And(AKnight, AKnave),
+            # if A is a Knave then what they said is not true
+            And(AKnave, Not(AKnave))
+        )))
+    ),
+
+    # B says "C is a knave."
+    Or(
+        # If B is a Knight then what they say is true
+        And(BKnight, CKnave),
+        # If B is a Knave then what they say is not true
+        And(BKnave, Not(CKnave))
+    ),
+
+    # C says "A is a knight."
+    Or(
+        # If C is a Knight then what they say is true
+        And(CKnight, AKnight),
+        # If C is a Knave then what they say is not true
+        And(CKnave, Not(AKnight))
+    )
 )
 
 
