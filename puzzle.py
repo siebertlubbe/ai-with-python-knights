@@ -19,6 +19,7 @@ knowledge0 = And(
     Not(And(AKnave, BKnave)),
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
+    Implication(And(AKnight, AKnave), And(AKnight, AKnave)),
     Implication(Not(And(AKnight, AKnave)), (AKnave))
 )
 
