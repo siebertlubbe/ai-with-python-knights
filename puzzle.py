@@ -20,10 +20,10 @@ knowledge0 = And(
 
     # A says "I am both a knight and a knave."
     Or(
-        # If A is truthful then they are a knight and knave at the same time
-        And(AKnight, AKnave),
-        # If A is lying then they are a Knave
-        AKnave
+        # If A is a Knight then what they say is true
+        And(AKnight, And(AKnight, AKnave)),
+        # If A is a Knave then what they say is not true
+        And(AKnave, Not(And(AKnight, AKnave)))
     )
 )
 
@@ -41,10 +41,10 @@ knowledge1 = And(
 
     # A says "We are both knaves."
     Or(
-        # If A is truthful the they are Knight and ... both of them are Knaves
-        And(AKnight, AKnave, BKnave),
-        # If A is lying then they are a Knave and B is a Knight
-        And(AKnave, BKnight)
+        # If A is a Knight then what they say is true
+        And(AKnight, And(AKnave, BKnave)),
+        # If A is a Knave then what they say is not true
+        And(AKnave, Not(And(AKnave, BKnave)))
     )    
 )
 
@@ -52,25 +52,40 @@ knowledge1 = And(
 # A says "We are the same kind."
 # B says "We are of different kinds."
 knowledge2 = And(
+    # Game fundamentals
+    # You are either a knight or a knave
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
+    # You cannot be a knight and knave at the same time
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
 
     # A says "We are the same kind."
     Or(
-        # If A is truthful then A is a Knight and B is a Knight
-        And(AKnight, BKnight),
-        # If A is lying then A is a Knave and B is a Knight
-        And(AKnave, BKnight)
+        # If A is a Knight then what they say is true
+        And(AKnight, Or(
+            And(AKnight, BKnight),
+            And(AKnave, BKnave)
+        )),
+        # If A is a Knave then what they say is not true
+        And(AKnave, Not(Or(
+            And(AKnight, BKnight),
+            And(AKnave, BKnave)
+        )))
     ),
 
     # B says "We are of different kinds."
     Or(
-        # If B is truthful then B is a Knight and A is a Knave
-        And(BKnight, AKnave),
-        # If B is lying then B is a Knave and A is a Knave
-        And(BKnave, AKnave)
+        # If B is a Knight then what they say is true
+        And(BKnight, Or(
+            And(AKnave, BKnight),
+            And(AKnight, BKnave)
+        )),
+        # If B is a Knave then what they say is not true
+        And(BKnave, Not(Or(
+            And(AKnave, BKnight),
+            And(AKnight, BKnave)
+        )))
     )    
 )
 
@@ -80,7 +95,13 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 knowledge3 = And(
-    # TODO
+    # Game fundamentals
+    # You are either a knight or a knave
+    Or(AKnight, AKnave),
+    Or(BKnight, BKnave),
+    # You cannot be a knight and knave at the same time
+    Not(And(AKnight, AKnave)),
+    Not(And(BKnight, BKnave))
 )
 
 
