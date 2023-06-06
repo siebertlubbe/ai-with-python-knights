@@ -37,7 +37,15 @@ knowledge1 = And(
     Or(BKnight, BKnave),
     # You cannot be a knight and knave at the same time
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave))
+    Not(And(BKnight, BKnave)),
+
+    # A says "We are both knaves."
+    Or(
+        # If A is truthful the they are not Knight and ... both of them are Knaves
+        And(AKnight, AKnave, BKnave),
+        # If A is lying then they are a Knave and B is a Knight
+        And(AKnave, BKnight)
+    )    
 )
 
 # Puzzle 2
@@ -47,7 +55,23 @@ knowledge2 = And(
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
     Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave))
+    Not(And(BKnight, BKnave)),
+
+    # A says "We are the same kind."
+    Or(
+        # If A is truthful then A is a Knight and B is a Knight
+        And(AKnight, BKnight),
+        # If A is lying then A is a Knave and B is a Knight
+        And(AKnave, BKnight)
+    ),
+
+    # B says "We are of different kinds."
+    Or(
+        # If B is truthful then B is a Knight and A is a Knave
+        And(BKnight, AKnave),
+        # If B is lying then B is a Knave and A is a Knave
+        And(BKnave, AKnave)
+    )    
 )
 
 # Puzzle 3
