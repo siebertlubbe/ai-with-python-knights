@@ -20,7 +20,7 @@ knowledge0 = And(
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
     Implication(And(AKnight, AKnave), And(AKnight, AKnave)),
-    Implication(Not(And(AKnight, AKnave)), (AKnave))
+    Implication(Not(And(AKnight, AKnave)), AKnave)
 )
 
 # Puzzle 1
@@ -28,6 +28,13 @@ knowledge0 = And(
 # B says nothing.
 knowledge1 = And(
     # TODO
+    Or(AKnight, AKnave),
+    Or(BKnight, BKnave),
+    Not(And(AKnight, BKnight)),
+    Not(And(AKnave, BKnave)),
+    Not(And(AKnight, AKnave)),
+    Not(And(BKnight, BKnave)),
+    Implication(Not(And(AKnave, BKnave)), AKnave)
 )
 
 # Puzzle 2
@@ -35,13 +42,6 @@ knowledge1 = And(
 # B says "We are of different kinds."
 knowledge2 = And(
     # TODO
-    Or(AKnight, AKnave),
-    Or(BKnight, BKnave),
-    Not(And(AKnight, BKnight)),
-    Not(And(AKnave, BKnave)),
-    Not(And(AKnight, AKnave)),
-    Not(And(BKnight, BKnave)),
-    Implication()
 )
 
 # Puzzle 3
